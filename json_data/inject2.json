@@ -1,0 +1,10 @@
+[
+  {
+    "name" : "invsqrt",
+    "definition" : "1 / sqrt(x * x)"
+  },
+  {
+    "name" : "sum_powers",
+    "definition" : "x * (1 + x * (1 + x))"
+  }
+]

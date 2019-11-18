@@ -1,0 +1,10 @@
+[
+  {
+    "name" : "sq",
+    "definition" : "x * x"
+  },
+  {
+    "name" : "cube",
+    "definition" : "x * sq(x)"
+  }
+]
