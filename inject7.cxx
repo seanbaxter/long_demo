@@ -61,22 +61,6 @@ template<typename func_t, typename cookie_t>
   @(name);
 }
 
-enum class some_enum_t {
-  // Allow semicolons between declarations.
-  x, y;
-
-  // Define _2, _3 and _4.
-  @meta for(int i = 2; i < 5; ++i)
-    @(i);
-
-  // Define enum_5, enum_6
-  @meta for(int i = 5; i < 6; ++i)
-    @("enum_", i);
-
-  // Define 7 through 16.
-  @(__integer_pack(10) + 7)...;
-};
-
 enum class my_enum_t {
   @macro visit_json_files("json_data", visit_json_contents, declare_enum);
 };

@@ -1,17 +1,24 @@
 #include <cstdio>
 
-inline constexpr const char* weekdays[] {
-  "Monday", 
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
+struct day_pair_t {
+  const char* name;
+  int value;
+};
+
+// or inline constexpr day_pair_t weekdays[] { ...
+@meta const day_pair_t weekdays[] {
+  { "Monday",    10 },
+  { "Tuesday",   11 },
+  { "Wednesday", 12 },
+  { "Thursday",  13 },
+  { "Friday",    14 },
+  { "Saturday",  15 },
+  { "Sunday",    16 },
 };
 
 enum class weekday_t {
-  @(@pack_nontype(weekdays)) = 10 + int... ...;
+  @meta for(day_pair_t pair : weekdays)
+    @(pair.name) = pair.value;
 };
 
 @meta printf("%s = %d\n", @enum_names(weekday_t), @enum_pack(weekday_t)) ...;
