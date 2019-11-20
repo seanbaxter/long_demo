@@ -115,25 +115,25 @@ inline node_ptr_t parse(const char* text) {
 }
 
 @macro auto eval_node(const node_t* __node) {
-  @meta+ if(rpn::kind_t::var == __node->kind) {
-    @emit return @expression(__node->text);
+  @meta if(rpn::kind_t::var == __node->kind) {
+    return @expression(__node->text);
 
-  } else if(rpn::kind_t::op == __node->kind) {
-    @emit return @op(
+  } else @meta if(rpn::kind_t::op == __node->kind) {
+    return @op(
       __node->text, 
       rpn::eval_node(__node->a.get()),
       rpn::eval_node(__node->b.get())
     );
 
-  } else if(rpn::kind_t::f1 == __node->kind) {
+  } else @meta if(rpn::kind_t::f1 == __node->kind) {
     // Call a unary function.
-    @emit return @(__node->text)(
+    return @(__node->text)(
       rpn::eval_node(__node->a.get())
     );
 
-  } else if(rpn::kind_t::f2 == __node->kind) {
+  } else @meta if(rpn::kind_t::f2 == __node->kind) {
     // Call a binary function.
-    @emit return @(__node->text)(
+    return @(__node->text)(
       rpn::eval_node(__node->a.get()),
       rpn::eval_node(__node->b.get())
     );

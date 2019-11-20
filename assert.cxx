@@ -13,6 +13,9 @@ void func1(type_t x) {
 }
 
 int main() {
+  constexpr int x = 4;
+  @meta assert(x == 3);
+
   @meta func1(3);
   return 0;
 }

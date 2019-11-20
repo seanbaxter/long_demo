@@ -54,6 +54,8 @@ inline void transform_format(const char* fmt, std::string& fmt2,
   @meta std::vector<std::string> exprs;
   @meta transform_format(fmt, fmt2, exprs);
 
+  // Print the modified format specifier and each printf argument as
+  // a diagnostic.
   @meta printf("Format specifier: '%s'\n", fmt2.c_str());
   @meta printf("%d: %s\n", int..., @pack_nontype(exprs).c_str()) ...;
 
