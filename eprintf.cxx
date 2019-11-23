@@ -2,6 +2,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <cstdio>
+#include "serialization.hxx"
 
 // Scan through until the closing '}'.
 inline const char* parse_braces(const char* text) {
@@ -63,14 +64,25 @@ inline void transform_format(const char* fmt, std::string& fmt2,
   // Pass to sprintf via format.
   return printf(
     @string(fmt2.c_str()), 
-    std::to_string(@expression(@pack_nontype(exprs))).c_str()...
+    stream_simple(@expression(@pack_nontype(exprs))).c_str()...
   );
 }
+
+struct vec3_t {
+  double x, y, z;
+
+  friend vec3_t operator*(double s, const vec3_t& v) {
+    return { s * v.x, s * v.y, s * v.z };
+  }
+};
 
 
 int main() {
   double x = 5;
-  eprintf("x = {x} sqrt = {sqrt(x)} exp = {exp(x)}\n");
+  eprintf("x = {x}, sqrt = {sqrt(x)}, exp = {exp(x)}\n");
+
+  vec3_t v { 4, 5, 6 };
+  eprintf("v = {v}, v2 = {2 * v}\n");
 
   return 0;
 }

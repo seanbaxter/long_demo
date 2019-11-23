@@ -41,9 +41,7 @@ using unique_tuple = typename unique_tuple_t<types_t...>::type_t;
 // Turn these 7 elements into 4 unique ones.
 typedef unique_tuple<int, double, char*, double, char*, float> my_tuple;
 
-@meta std::cout<< 
-  @type_name(@member_types(my_tuple))<< " "<<
-  @member_names(my_tuple)<< "\n" ...;
+@meta std::cout<< @member_decl_strings(my_tuple)<< "\n" ...;
 
 int main() {
   return 0;

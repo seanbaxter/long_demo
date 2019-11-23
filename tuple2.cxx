@@ -11,9 +11,8 @@ tuple_t(types_t... args) -> tuple_t<types_t...>;
 template<typename type_t>
 void print_object(const type_t& obj) {
   std::cout<< 
-    @type_name(@member_types(type_t))<< " "<< 
-    @member_names(type_t)<< ": "<< 
-    @member_pack(obj)<< "\n" ...;
+    @member_decl_strings(type_t)<< ": "<<
+    @member_values(obj)<< "\n" ...;
 }
 
 @meta print_object(tuple_t {

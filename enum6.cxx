@@ -16,14 +16,14 @@ enum typename unsorted_t {
 
 // Print ref_list_t's contents.
 @meta puts("\nunsorted_t:");
-@meta printf("%d: %s\n", int..., @type_name(@enum_types(unsorted_t)))...;
+@meta printf("%d: %s\n", int..., @enum_type_strings(unsorted_t))...;
 
 enum typename sorted_t {
   // Expand the string spellings of the types into an array, along with the
   // index into the type.
   @meta std::array types {
     std::make_pair<std::string, int>( 
-      @type_name(@enum_types(unsorted_t)),
+      @enum_type_strings(unsorted_t),
       int...
     )...
   };
@@ -37,8 +37,8 @@ enum typename sorted_t {
 
 // Print sorted_t's contents.
 @meta puts("\nsorted_t:");
-@meta printf("%d: %s\n", int..., @type_name(@enum_types(sorted_t)))...;
+@meta printf("%d: %s\n", int..., @enum_type_strings(sorted_t))...;
 
 int main() {
   return 0;
-}
+} 

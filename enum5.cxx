@@ -24,7 +24,7 @@ struct foo_t {
 
 
 typedef foo_t<5>::my_enum_t X;
-@meta printf("%s = %s\n", @enum_names(X), @type_name(@enum_types(X)))...;
+@meta printf("%s = %s\n", @enum_names(X), @enum_type_strings(X))...;
 
 int main() {
   return 0;
