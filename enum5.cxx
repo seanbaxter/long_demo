@@ -18,7 +18,8 @@ struct foo_t {
     static_assert(N <= std::extent<decltype(types)>::value);
 
     // Create enumerators for the first N types spelled out in types array.
-    @("enum_", int...) = @type_id(types[__integer_pack(N)]) ...;
+    @meta for(size_t i = 0; i < N; ++i)
+      @("enum_", i) = @type_id(types[i]);
   };
 };
 

@@ -35,6 +35,13 @@ struct unique_tuple_t {
   typedef tuple_t<@pack_type(types)...> type_t;
 };
 
+// @mtype is pointer-sized opaque data type. comparison/equivalence is 
+// implemented. 
+// @dynamic_type - convert a type to an @mtype prvalue
+// @static_type - convert an @mtype to a type
+// @pack_type - treat an array, std::array or std::vector of @mtype as a 
+//              type parameter pack.
+
 template<typename... types_t>
 using unique_tuple = typename unique_tuple_t<types_t...>::type_t;
 

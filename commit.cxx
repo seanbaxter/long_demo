@@ -1,7 +1,6 @@
 #include <cstdio>
 #include <cstdarg>
 #include <string>
-#include <vector>
 #include <stdexcept>
 
 inline std::string format(const char* pattern, ...) {
@@ -28,22 +27,20 @@ inline std::string capture_call(const char* cmd) {
   FILE* f = popen(cmd2.data(), "r");
 
   // We can't seek within this stream, so read in a KB at a time.
-  std::vector<char> vec;
+  std::string text;
   char line[1024];
   size_t count = 0;
   do {
     count = fread(line, 1, 1024, f);
-    vec.insert(vec.end(), line, line + count);
+    text.insert(text.end(), line, line + count);
   } while(1024 == count);
 
-  std::string s(vec.begin(), vec.end());
-  
   // If the process closes with a non-zero exit code, throw the terminal
   // output as a std::runtime_error exception.
   if(pclose(f))
-    throw std::runtime_error(s);
+    throw std::runtime_error(text);
 
-  return s;
+  return text;
 }
 
 // Every time print_version is compiled, it runs "git rev-parse HEAD" to
@@ -53,6 +50,9 @@ void print_version() {
 
   // Retrieve the current commit hash.
   @meta std::string hash = capture_call("git rev-parse HEAD");
+
+  // Print as a diagonstic.
+  @meta printf("Current hash is %s\n", hash.c_str());
 
   // Substitute into the format specifier.
   @meta std::string text = format(

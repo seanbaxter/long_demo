@@ -21,7 +21,8 @@ enum class weekday_t {
     @(pair.name) = pair.value;
 };
 
-@meta printf("%s = %d\n", @enum_names(weekday_t), @enum_values(weekday_t)) ...;
+@meta for enum(weekday_t e : weekday_t)
+  @meta printf("%s = %d\n", @enum_name(e), (int)e);
 
 int main() {
   return 0;

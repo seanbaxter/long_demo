@@ -22,12 +22,12 @@ enum typename joined_t {
     @enum_type(e);
 
   // Or use a pack expansion.
-  @enum_types(type_list2_t)...;
+  @enum_types(type_list2_t) ...;
 };
 
 // Print joined_t's contents.
 @meta puts("joined_t:");
-@meta printf("%s = %s\n", @enum_names(joined_t), @enum_type_strings(joined_t))...;
+@meta printf("%s = %s\n", @enum_names(joined_t), @enum_type_strings(joined_t)) ...;
 
 // Expand into a tuple's template arguments.
 template<typename... types_t>
@@ -36,8 +36,9 @@ struct tuple_t {
 };
 
 typedef tuple_t<@enum_types(joined_t)...> my_tuple_t;
+
 @meta puts("\nmy_tuple_t:");
-@meta puts(@member_decl_strings(my_tuple_t))...;
+@meta puts(@member_decl_strings(my_tuple_t)) ...;
 
 int main() {
   return 0;

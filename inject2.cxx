@@ -17,7 +17,7 @@ const char* inject_filename = "json_data/inject1.json";
   @meta std::string name = item.value()["name"];
   @meta std::string definition = item.value()["definition"];
 
-  @meta printf("Injecting function \"%s\" = \"%s\"\n", 
+  @meta printf("Injecting function '%s' = '%s'\n", 
     name.c_str(), definition.c_str());
 
   double @(name)(double x) {

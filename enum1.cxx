@@ -31,7 +31,6 @@ enum class shape_t {
   hexagon,
 };
 
-
 int main() {
   const char* names[] {
     "square", "octagon", "hexagon", "rhombus", "circle"
