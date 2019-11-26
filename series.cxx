@@ -19,11 +19,11 @@ inline std::vector<double> read_file(const char* name) {
 }
 
 double my_function(double x) {
-  @meta std::vector<double> coef = read_file("series.txt");
+  std::vector<double> coef = read_file("series.txt");
 
   double x2 = 1;
   double y = 0;
-  @meta for(double c : coef) {
+  for(double c : coef) {
     y += x2 * c;
     x2 *= x;
   }
