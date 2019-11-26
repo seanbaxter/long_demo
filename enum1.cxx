@@ -2,13 +2,26 @@
 #include <cstring>
 #include <optional>
 
+// @meta for over @enum_count
+template<typename type_t>
+const char* enum_to_name_loop(type_t e) {
+  switch(e) {
+    @meta for(int i = 0; i < @enum_count(type_t); ++i)
+      case @enum_value(type_t, i):
+        return @enum_name(type_t, i);
+
+    default:
+      return nullptr;
+  }
+}
+
+// @meta for enum for range-for over enumerators.
 template<typename type_t>
 const char* enum_to_name(type_t e) {
   switch(e) {
-    @meta for enum(type_t e2 : type_t) {
+    @meta for enum(type_t e2 : type_t)
       case e2:
         return @enum_name(e2);
-    }
 
     default:
       return nullptr;
@@ -17,10 +30,10 @@ const char* enum_to_name(type_t e) {
 
 template<typename type_t>
 std::optional<type_t> name_to_enum(const char* name) {
-  @meta for enum(type_t e2 : type_t) {
+  @meta for enum(type_t e2 : type_t)
     if(!strcmp(@enum_name(e2), name))
       return e2;
-  }
+  
   return { };
 }
 

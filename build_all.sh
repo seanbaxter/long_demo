@@ -15,6 +15,7 @@ circle enum4.cxx
 circle enum5.cxx
 circle enum6.cxx
 
+circle dynamic.cxx
 circle serialization.cxx
 
 circle inject1.cxx
@@ -28,3 +29,4 @@ circle inject7.cxx
 circle eprintf.cxx
 circle rpn.cxx
 # demo regex 
+circle type_erasure.cxx
