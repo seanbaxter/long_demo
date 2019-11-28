@@ -30,6 +30,30 @@ template<typename type_t>
 void sort_vec(std::vector<type_t>& vec) {
   qsort(vec.data(), vec.size(), sizeof(type_t), cmp_pred<type_t>);
 }
+
+template<typename type_t>
+void sort_test(size_t count, bool verbose = false) {
+  std::vector<type_t> vec(count);
+  for(size_t i = 0; i < count; ++i)
+    vec[i] = rand() % 1000;
+
+  sort_vec(vec);
+  bool sorted = std::is_sorted(vec.begin(), vec.end());
+  if(!sorted) {
+    fputs("input array not sorted", stderr);
+
+  } else if(verbose) {
+    for(auto x : vec)
+      std::cout<< x<< "\n";
+  }
+}
+
+int main() {
+  // Run everything above at compile time!
+  @meta sort_test<float>(50, true);
+
+  return 0;
+}
 ```
 
 qsort is externally defined in libc.so.6. When executed from the interpreter, Circle makes a foreign function call. An FFI closure is allocated for the cmp_pred specialization. The compiled qsort code calls into this closure, returning control to the compiler, and the Circle interpreter executes cmp_pred by traversing its AST. The result object is returned via the closure, and execution resumes in libc, which will return control to the interpreter when finished sorting its argument.
