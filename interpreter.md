@@ -8,7 +8,7 @@ All C++ code is built on functions and objects that are externally defined in li
 
 There are three general strategies used to run anything in the Circle interpreter:
 1. Adopt C++ ABI data layout. All objects in the interpreter are laid out in compliance with the C++ ABI. This includes bit-field layout, virtual base class layout, and so on. We can pass objects by value, or pass by reference, to functions in compiled code.
-1. FFI closures are generated whenever the address of a locally-defined function is required. The function can be called through this address inside the interpreter, or passed to compiled code and called from there. The closure's callback is implemented by the interpreter, which walks the AST to executes the function.
+1. FFI closures are generated whenever the address of a locally-defined function is required. The function can be called through this address inside the interpreter, or passed to compiled code and called from there. The closure's callback is implemented by the interpreter, which walks the AST to execute the function.
 1. Real C++ exception handling is implemented in the interpreter. _throw-expression_ is implemented with a call to `__cxa_throw`, and catch clauses are implemented with RTTI checks on the caught exception, which is equivalent to the sequence emitted in compiled catch clauses.
 
 ## FFI closures
@@ -111,3 +111,9 @@ Caught exception 'indirect meta-try' in try_test
 Compile `throw.cxx` into an ordinary shared object library, `libthrow.so`. Compile `catch.cxx` into an executable and use -M to load `libthrow.so` as a compile-time resource. 
 
 `throw_func` isn't declared in catch.cxx, so the interpreter is forced to perform a foreign function call. It searches for the mangled name `_Z10throw_funcPKc` and finds it in the shared object. Circle uses `dlsym` to extract the function address, and invokes it with the argument string. The shared object throws a C++ exception (using `__cxa_throw` internally, from libc++abi). The stack is unwound through the FFI mechanism. The Circle interpreter implements the set of meta catch clauses with a `catch(...)` mechanism: `__cxa_current_exception_type` retrieves the `std::type_info` of the thrown exception, and `std::type_info::__do_catch` matches the caught exception against each of the programmer-specified catch clause types. This exactly correlates to the catch implementation emitted by native code on Itanium ABI platforms.
+
+## FFI for performance
+
+When a function is locally defined when called, it is executed through the interpreter. This provides superior error reporting and robustness compared to binary execution, but at a tremendous performance cost. The developer can move the definitions of long-running functions from a header file into a .cpp file, and build those .cpp files into a binary dependency for the project.
+
+Adding a C++ attribute on functions to prefer binary definitions over local definitions is an obvious enhancement. 
