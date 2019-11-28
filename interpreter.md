@@ -32,7 +32,7 @@ void sort_vec(std::vector<type_t>& vec) {
 }
 ```
 
-qsort is externally defined in libc.so.6. When executed from the interpreter, Circle makes a foreign function call. An FFI closure is	allocated for the cmp_pred specialization. The compiled qsort code calls into this closure, returning control to the compiler, and the Circle interpreter executes cmp_pred by traversing its AST. The result object is returned via the closure, and execution resumes in libc, which will return control to the interpreter when finished sorting its argument.
+qsort is externally defined in libc.so.6. When executed from the interpreter, Circle makes a foreign function call. An FFI closure is allocated for the cmp_pred specialization. The compiled qsort code calls into this closure, returning control to the compiler, and the Circle interpreter executes cmp_pred by traversing its AST. The result object is returned via the closure, and execution resumes in libc, which will return control to the interpreter when finished sorting its argument.
 
 Circle tries to elide calls through its own FFI closure--it keeps a table of all closures by address and the functions they map to. It first checks a function address with this table, and only if it's not in the table does it execute an FFI call (otherwise it interprets the function from its AST).
 
@@ -55,8 +55,8 @@ Circle supports real C++ exceptions at compile time. They may be thrown from bin
 #include <stdexcept>
 
 void throw_func(const char* msg) {
-	printf("Throwing an exception with msg '%s'\n", msg);
-	throw std::runtime_error(msg);
+  printf("Throwing an exception with msg '%s'\n", msg);
+  throw std::runtime_error(msg);
 }
 ```
 ```
@@ -77,28 +77,28 @@ void throw_func(const char* msg);
 
 // Catch an exception in a meta-try block.
 @meta try {
-	@meta throw_func("direct meta-try");
+  @meta throw_func("direct meta-try");
 
 } catch(std::exception& e) {
-	@meta printf("Caught exception '%s' in meta-try\n", e.what());
+  @meta printf("Caught exception '%s' in meta-try\n", e.what());
 }
 
 // Catch an exception in a normal function, called from a meta
 // expression statement.
 inline void try_test() {
-	try {
-		throw_func("indirect meta-try");
+  try {
+    throw_func("indirect meta-try");
 
-	} catch(std::exception& e) {
-		printf("Caught exception '%s' in try_test\n", e.what());
-	}
+  } catch(std::exception& e) {
+    printf("Caught exception '%s' in try_test\n", e.what());
+  }
 }
 
 // Execute try_test at compile time.
 @meta try_test();
 
 int main() {
-	return 0;
+  return 0;
 }
 ```
 ```
