@@ -17,7 +17,7 @@ Foreign function/object linking is performed when trying to convert a function/o
 
 Alternatively, if the function is defined locally, an FFI closure is allocated, which binds a callback function and a cookie to a callable address: this is the function address used within the compiler, and may be shared with compiled code.
 
-[**qsort.cxx**](qsort)
+[**qsort.cxx**](qsort.cxx)
 ```cpp
 template<typename type_t>
 int cmp_pred(const void* a, const void* b) {
