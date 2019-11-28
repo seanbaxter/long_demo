@@ -8,7 +8,7 @@ All C++ code is built on functions and objects that are externally defined in li
 
 There are three general strategies used to run anything in the Circle interpreter:
 1. Adopt C++ ABI data layout. All objects in the interpreter are laid out in compliance with the C++ ABI. This includes bit-field layout, virtual base class layout, and so on. We can pass objects by value, or pass by reference, to functions in compiled code.
-1. FFI closures are generated whenever the address of a locally-defined function is required. The function can be called through this address inside the interpreter, or passed to compiled code and called from there. The closure's callback is implemented by the interpreter, which walks the AST to execute the function.
+1. FFI closures are generated whenever the address of a locally-defined function is required. The function can be called through this address inside the interpreter, or passed to compiled code and called from there. The closure's callback is implemented by the interpreter, which walks the AST to execute the function. The interpreted code is re-entrant with respect to foreign function calls.
 1. Real C++ exception handling is implemented in the interpreter. _throw-expression_ is implemented with a call to `__cxa_throw`, and catch clauses are implemented with RTTI checks on the caught exception, which is equivalent to the sequence emitted in compiled catch clauses.
 
 ## FFI closures
