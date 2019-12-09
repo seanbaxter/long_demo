@@ -178,9 +178,8 @@ void stream_simple(std::ostream& os, const type_t& obj) {
   } else if constexpr(std::is_class<type_t>::value) {
     // For any other class, treat with circle's introspection.
     os<< "{";
-    bool insert_comma = false;
     @meta for(size_t i = 0; i < @member_count(type_t); ++i) {
-      if(insert_comma) 
+      if(i) 
         os<< ",";
       os<< " ";
 
@@ -190,9 +189,6 @@ void stream_simple(std::ostream& os, const type_t& obj) {
 
       // Stream the value of the member.
       stream_simple(os, @member_value(obj, i));
-
-      // On the next go-around, insert a comma before the newline.
-      insert_comma = true;
     }
     os<< " }";
 
