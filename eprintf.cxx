@@ -48,7 +48,7 @@ inline void transform_format(const char* fmt, std::string& fmt2,
   fmt2 = std::string(text.begin(), text.end());
 }
 
-@macro auto eprintf(const char* fmt) {
+@mauto eprintf(const char* fmt) {
   // Process the input specifier. Remove {name} and replace with %s.
   // Store the names in the array.
   @meta std::string fmt2;
@@ -64,7 +64,7 @@ inline void transform_format(const char* fmt, std::string& fmt2,
   // Pass to sprintf via format.
   return printf(
     @string(fmt2.c_str()), 
-    stream_simple(@expression(@pack_nontype(exprs))).c_str()...
+    stream_simple(@@expression(@pack_nontype(exprs))).c_str()...
   );
 }
 

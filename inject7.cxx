@@ -13,7 +13,7 @@ inline bool match_extension(const char* filename, const char* ext) {
 }
 
 template<typename func_t, typename cookie_t>
-@macro void visit_json_files(
+@mvoid visit_json_files(
   std::string dirname, 
   func_t callback, 
   cookie_t cookie
@@ -34,9 +34,9 @@ template<typename func_t, typename cookie_t>
   @meta closedir(dir);
 }
 
-@macro void visit_json_contents(
+@mvoid visit_json_contents(
   const char* filename, 
-  void(*callback)(std::string, std::string)
+  @mvoid(*callback)(std::string, std::string)
 ) {
 
   @meta printf("Opening file %s\n", filename);
@@ -54,7 +54,7 @@ template<typename func_t, typename cookie_t>
   }
 }
 
-@macro void declare_enum(std::string name, std::string definition) {
+@mvoid declare_enum(std::string name, std::string definition) {
   @meta printf("Injecting enum \"%s\"\n", name.c_str());
 
   // Make an enum declaration using a semicolon deliminated identifier.

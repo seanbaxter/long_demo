@@ -5,7 +5,7 @@
 
 @meta std::vector<std::string> function_names;
 
-@macro void inject_json_file(const char* filename) {
+@mvoid inject_json_file(const char* filename) {
   @meta printf("Opening resource %s\n", filename);
   @meta std::ifstream json_file(filename);
   @meta nlohmann::json j;

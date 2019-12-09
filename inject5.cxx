@@ -13,7 +13,7 @@ inline bool match_extension(const char* filename, const char* ext) {
 }
 
 template<typename func_t, typename cookie_t>
-@macro void visit_json_files(
+@mvoid visit_json_files(
   std::string dirname, 
   func_t callback, 
   cookie_t cookie
@@ -34,9 +34,9 @@ template<typename func_t, typename cookie_t>
   @meta closedir(dir);
 }
 
-@macro void visit_json_contents(
+@mvoid visit_json_contents(
   const char* filename, 
-  void(*callback)(std::string, std::string)
+  @mvoid(*callback)(std::string, std::string)
 ) {
 
   @meta printf("Opening file %s\n", filename);
@@ -58,12 +58,12 @@ template<typename func_t, typename cookie_t>
 
 @meta std::vector<std::string> function_names;
 
-@macro void declare_function(std::string name, std::string definition) {
+@mvoid declare_function(std::string name, std::string definition) {
   @meta printf("Injecting function \"%s\" = \"%s\"\n", name.c_str(), 
     definition.c_str());
 
   double @(name)(double x) {
-    return @expression(definition);
+    return @@expression(definition);
   }
 
   @meta function_names.push_back(name);

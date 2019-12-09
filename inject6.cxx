@@ -3,9 +3,9 @@
 #include <cstdio>
 #include "json.hpp"
 
-@macro void visit_json_contents(
+@mvoid visit_json_contents(
   const char* filename, 
-  void(*callback)(std::string, std::string)
+  @mvoid(*callback)(std::string, std::string)
 ) {
 
   @meta printf("Opening file %s\n", filename);
@@ -25,7 +25,7 @@
 
 @meta std::vector<std::string> function_names;
 
-@macro void declare_function(std::string name, std::string definition) {
+@mvoid declare_function(std::string name, std::string definition) {
   @meta printf("Injecting function \"%s\" = \"%s\"\n", name.c_str(), 
     definition.c_str());
 
