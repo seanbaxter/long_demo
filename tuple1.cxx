@@ -1,4 +1,5 @@
 #include <iostream>
+@meta std::cout<< "Hello world\n";
 
 template<typename... types_t>
 struct tuple_t {
@@ -11,10 +12,7 @@ tuple_t(types_t... args) -> tuple_t<types_t...>;
 
 template<typename type_t>
 void print_object(const type_t& obj) {
-  @meta for(int i = 0; i < @member_count(type_t); ++i)
-    std::cout<< 
-      @member_decl_string(type_t, i)<< ": "<<
-      @member_value(obj, i)<< "\n";
+    std::cout<< 1<< "\n";
 }
 
 // @member_count - number of public non-static data members
