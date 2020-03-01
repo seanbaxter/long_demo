@@ -22,8 +22,6 @@ circle inject1.cxx
 circle inject2.cxx
 circle inject3.cxx
 circle inject4.cxx
-circle inject5.cxx
-circle inject6.cxx
 circle inject7.cxx
 
 circle eprintf.cxx
